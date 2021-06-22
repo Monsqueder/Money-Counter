@@ -1,0 +1,27 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: gateway-service
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
+zuul:
+  ignored-services:
+  routes:
+    counter-service:
+      path: /counter/**
+      service-id: counter-service
+      sensitive-headers: Cookie,Set-Cookie
+    exchange-service:
+      path: /exchange/**
+      service-id: exchange-service
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
